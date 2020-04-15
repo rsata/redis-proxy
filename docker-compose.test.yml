@@ -7,7 +7,7 @@ services:
     environment:
       - NODE_ENV=development
       - PORT=3000
-    command: sh -c "npm install && npm run dev"
+    command: sh -c "npm install && npm start"
     ports:
       - '3000:3000'
     working_dir: /usr/src/app
@@ -20,3 +20,4 @@ services:
     image: redis
     expose:
       - 6379
+    command: ["redis-server", "--bind", "redis", "--port", "6379"]

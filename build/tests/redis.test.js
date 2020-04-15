@@ -35,23 +35,22 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var server_1 = __importDefault(require("./services/server"));
-var loadData = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var server;
-    return __generator(this, function (_a) {
-        try {
-            server = new server_1.default();
-            server.load({ key: 'a', name: 'Luke Skywalker' });
-            // console.log(t)
-        }
-        catch (err) {
-            console.log(err);
-        }
-        return [2 /*return*/];
-    });
-}); };
-loadData();
+var redis_1 = require("../src/services/redis");
+var client = new redis_1.RedisClient();
+describe('redis', function () {
+    it('should get data', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var r;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, client.get('a')];
+                case 1:
+                    r = _a.sent();
+                    console.log(r);
+                    expect(r).toEqual("Luke Skywalker");
+                    client.quit();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+});

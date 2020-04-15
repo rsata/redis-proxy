@@ -4,8 +4,9 @@ build:
 
 test:
 	docker-compose down
-	docker-compose up -d --build
-	docker-compose run --rm server npm run data && npm test
+	docker-compose -f docker-compose.test.yml up -d --build
+	docker-compose -f docker-compose.test.yml run server npm run data
+	docker-compose -f docker-compose.test.yml run server npm test
 
 dev: 
 	docker-compose -f docker-compose.dev.yml up --build

@@ -39,61 +39,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var express_1 = __importDefault(require("express"));
-var cache_1 = require("./cache");
-var redis_1 = require("./redis");
-var app = express_1.default();
-var port = process.env.PORT || 3000;
-var cache = new cache_1.Cache();
-var client = new redis_1.RedisClient();
-var Server = /** @class */ (function () {
-    function Server() {
-    }
-    Server.prototype.run = function () {
-        var _this = this;
-        app.listen(port, function () { return console.log("Running on " + port + "."); });
-        app.get('/id/:key', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var key, item, err_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 5, , 6]);
-                        key = req.params.key;
-                        return [4 /*yield*/, cache.get(key)];
-                    case 1:
-                        item = _a.sent();
-                        // if found in cache, send it
-                        if (item !== undefined) {
-                            res.status(200).send({ item: item });
-                            return [2 /*return*/];
-                        }
-                        return [4 /*yield*/, client.get(key)];
-                    case 2:
-                        // If not in cache, get from redis         
-                        item = _a.sent();
-                        if (!(item !== null)) return [3 /*break*/, 4];
-                        res.status(200).send({ item: item });
-                        return [4 /*yield*/, cache.set(key, item)];
-                    case 3:
-                        _a.sent();
-                        return [2 /*return*/];
-                    case 4:
-                        // If not found in redis, send not found    
-                        res.status(404).send({ message: 'Item not found', status: 404 });
-                        return [3 /*break*/, 6];
-                    case 5:
-                        err_1 = _a.sent();
-                        console.log(err_1);
-                        res.status(501).send(err_1);
-                        return [3 /*break*/, 6];
-                    case 6: return [2 /*return*/];
-                }
-            });
-        }); });
-    };
-    Server.prototype.load = function (item) {
-        client.set(item);
-    };
-    return Server;
-}());
-exports.default = Server;
+var server_1 = __importDefault(require("../src/services/server"));
+var loadData = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var server, err_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                server = new server_1.default();
+                return [4 /*yield*/, server.load({ key: 'a', name: 'Luke Skywalker' })];
+            case 1:
+                _a.sent();
+                return [3 /*break*/, 3];
+            case 2:
+                err_1 = _a.sent();
+                console.log(err_1);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+loadData();

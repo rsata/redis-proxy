@@ -41,7 +41,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var redis_1 = __importDefault(require("redis"));
 var client = redis_1.default.createClient({
-    host: '127.0.0.1',
+    host: 'redis',
     port: 6379
 });
 var RedisClient = /** @class */ (function () {
