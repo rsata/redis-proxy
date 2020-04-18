@@ -1,12 +1,12 @@
 import LRU from 'lru-cache';
-import { RedisClient} from './redis';
-import { resolve } from 'dns';
 
-const cache = new LRU({
-  max: 500,
-  maxAge: 10000,
+const settings = {
+  max: parseInt(<string>process.env.CACHE_CAPACITY, 500),
+  maxAge: parseInt(<string>process.env.CACHE_EXPIRY, 10000),
   updateAgeOnGet: true
-});
+}
+
+const cache = new LRU(settings);
 
 
 export class Cache {

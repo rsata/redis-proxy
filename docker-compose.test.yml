@@ -6,7 +6,8 @@ services:
       dockerfile: ./Dockerfile.dev
     environment:
       - NODE_ENV=development
-      - PORT=3000
+    env_file:
+      - .env
     command: sh -c "npm install && npm start"
     ports:
       - '3000:3000'

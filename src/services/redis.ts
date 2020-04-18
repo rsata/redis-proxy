@@ -1,9 +1,11 @@
 import redis from 'redis';
 
-const client = redis.createClient({
-  host: 'redis',
-  port: 6379
-});
+const settings = {
+  host: <string>process.env.REDIS_HOST,
+  port: parseInt(<string>process.env.REDIS_PORT),
+}
+
+const client = redis.createClient(settings);
 
 export class RedisClient {
   async get(key: string): Promise<any> {
