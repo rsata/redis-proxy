@@ -16,9 +16,9 @@ export class Cache {
       resolve(user);
     })
   }
-  async set(key:string, record: any): Promise<boolean> {
+  async set(key:string, value: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      const set = cache.set(key, record);
+      const set = cache.set(key, value);
       resolve(set);
     })    
   }
