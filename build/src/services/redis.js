@@ -78,8 +78,11 @@ var RedisClient = /** @class */ (function () {
     RedisClient.prototype.quit = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                client.quit();
-                return [2 /*return*/];
+                return [2 /*return*/, new Promise(function (resolve) {
+                        client.quit(function () {
+                            resolve();
+                        });
+                    })];
             });
         });
     };

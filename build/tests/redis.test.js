@@ -39,18 +39,38 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var redis_1 = require("../src/services/redis");
 var client = new redis_1.RedisClient();
 describe('redis', function () {
-    it('should get data', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it('should get Darth Vader', function () { return __awaiter(void 0, void 0, void 0, function () {
         var r;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, client.get('a')];
+                case 0: return [4 /*yield*/, client.get('user_000000001')];
                 case 1:
                     r = _a.sent();
-                    console.log(r);
-                    expect(r).toEqual("Luke Skywalker");
-                    client.quit();
+                    expect(r).toEqual("Darth Vader");
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('should get Darth Vader', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var r;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, client.get('user_000000001')];
+                case 1:
+                    r = _a.sent();
+                    expect(r).toEqual("Darth Vader");
                     return [2 /*return*/];
             }
         });
     }); });
 });
+afterAll(function () { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, client.quit()];
+            case 1:
+                _a.sent();
+                return [2 /*return*/];
+        }
+    });
+}); });

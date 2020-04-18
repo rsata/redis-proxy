@@ -1,10 +1,11 @@
-import Server from '../src/services/server'
+import { RedisClient } from '../src/services/redis'
 
 const loadData = async () => {
   try {
-    const server = new Server();
+    const client = new RedisClient();
     
-    await server.load({key: 'a', name: 'Luke Skywalker'});
+    await client.set({key: 'user_000000001', name: 'Darth Vader'});
+    await client.quit();
   }
   catch (err) {
     console.log(err)

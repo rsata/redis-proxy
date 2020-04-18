@@ -22,7 +22,11 @@ export class RedisClient {
       });      
     })
   }
-  async quit() {
-    client.quit();
+  async quit(): Promise<any> {
+    return new Promise((resolve) => {
+      client.quit(() => {
+          resolve();
+      });
+    });    
   }
 }

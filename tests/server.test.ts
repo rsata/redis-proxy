@@ -6,13 +6,27 @@ The test should test the Redis proxy in its running state (i.e. by starting the 
 It is also expected for the test to interact directly with the backing Redis instance in order to get it into a known good state (e.g. to set keys that would be read back through the proxy).
 */
 
-import Server from '../src/services/server';
+import { server } from '../src/server';
+import request from 'supertest';
+import { RedisClient } from '../src/services/redis'
 
-describe('server', function() {
-  it('returns', function() {
-    // const server = new Server();
-    // server.run()
-    // console.log(server);
-    expect(7).toEqual(7);
-  })
+const client = new RedisClient()
+
+describe('server', function() {  
+  it('returns Darth Vader', async () => {
+    const res = await request(server)
+      .get('/id/user_000000001');    
+    expect(res.body).toEqual({key: "user_000000001", value: "Darth Vader"});
+  });  
+
+  it('returns not found', async () => {
+    const res = await request(server)
+      .get('/id/random_id');
+    expect(res.body).toEqual({message: 'Item not found', status: 404});    
+  });  
 });
+
+afterAll(async () => {
+  await client.quit()
+  server.close()
+})
