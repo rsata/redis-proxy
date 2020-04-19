@@ -1,7 +1,7 @@
 # Redis Proxy
 
 ## High-level architecture overview.
-![architecture diagram](./artitecture.png)
+![architecture diagram](./architecture.png)
 
 ## What the code does.
 This service creates a cache with a single backing Redis instance. Connecting to the cache is done via HTTP.
