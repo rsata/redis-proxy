@@ -1,8 +1,8 @@
 import LRU from 'lru-cache';
 
 const settings = {
-  max: parseInt(<string>process.env.CACHE_CAPACITY, 500),
-  maxAge: parseInt(<string>process.env.CACHE_EXPIRY, 10000),
+  max: parseInt(<string>process.env.CACHE_CAPACITY) || 500,
+  maxAge: parseInt(<string>process.env.CACHE_EXPIRY) || 10000,
   updateAgeOnGet: true
 }
 

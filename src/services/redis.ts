@@ -2,7 +2,7 @@ import redis from 'redis';
 
 const settings = {
   host: 'redis',
-  port: parseInt(<string>process.env.REDIS_PORT),
+  port: parseInt(<string>process.env.REDIS_PORT) || 6379,
 }
 
 const client = redis.createClient(settings);
