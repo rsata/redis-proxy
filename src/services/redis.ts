@@ -1,7 +1,7 @@
 import redis from 'redis';
 
 const settings = {
-  host: <string>process.env.REDIS_HOST,
+  host: 'redis',
   port: parseInt(<string>process.env.REDIS_PORT),
 }
 
