@@ -1,7 +1,7 @@
 # Redis Proxy
 
 ## High-level architecture overview.
-![architecture diagram](/artitecture.png)
+![architecture diagram](./artitecture.png)
 
 ## What the code does.
 This service creates a cache with a single backing Redis instance. Connecting to the cache is done via HTTP.
@@ -17,10 +17,8 @@ The cache uses the `lru-cache` npm package. The max capacity and TTL are configu
 The Redis backing instance has methods for get, set and quit. On get, it will retrieve a single string value for a key. 
 
 ## Algorithmic complexity of the cache operations.
-### Get
-O(n)
-### Set
-O(1)
+Get: O(n)
+Set: O(1)
 
 ## Running and testing
 To run tests: `make test`
@@ -41,9 +39,10 @@ CACHE_CAPACITY (default: 500)
 * Cached GET, Global expiry, LRU eviction, Fixed key size: 1 hour
 * Configuration: 30 minutes
 * System tests: 2 hours
-* Platform: 8 hours - took some time getting familiar with Docker, in particular multiple docker containers with the proxy and Redis
+* Platform: 5 hours - took some time getting familiar with Docker, in particular multiple docker containers with the proxy and Redis
 * Single-click build and test: 1 hour
 * Documentation: 1 hour
+* General research, learning new tools, etc. 6 hours
 
 ## A list of the requirements that you did not implement and the reasons for omitting them.
 * Sequential concurrent processing: handled by node by default
