@@ -1,13 +1,13 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { Cache} from './services/cache';
+import LRU from './services/lruCache';
 import { RedisClient } from './services/redis';
 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 const port = process.env.PORT || 3000;
-const cache = new Cache();
+const cache = new LRU(parseInt(<string>process.env.CACHE_EXPIRY) || 1000, parseInt(<string>process.env.CACHE_CAPACITY) || 100);
 const client = new RedisClient();
 
 const server = app.listen(port, () => console.log(`Running on ${port}.`));
@@ -21,7 +21,7 @@ app.get('/id/:key', async (req, res) => {
 
     // if found in cache, send it
     if (item!==undefined) {      
-      res.status(200).send({key, value: item});
+      res.status(200).send({key, value: item, source: 'cache'});
       return;
     }
 
@@ -30,7 +30,7 @@ app.get('/id/:key', async (req, res) => {
 
     // If found in redis, send it and update cache
     if (item!==null) {      
-      res.status(200).send({key, value: item});
+      res.status(200).send({key, value: item, source: 'redis'});
       await cache.set(key, item)
       return;
     }
