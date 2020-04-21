@@ -49,7 +49,7 @@ export default class LRU {
     return undefined;
   }
 
-  set(key: any, value: any) { 
+  set(key: string, value: string) { 
     let node = new LNode(key, value)
     if (!this.head) {
       this.head = node;

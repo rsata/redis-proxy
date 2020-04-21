@@ -1,24 +1,50 @@
-import { Cache } from '../src/services/cache';
+import LRU from '../src/services/lruCache';
 
-const cache = new Cache()
+const cache = new LRU(1000, 2);
 
 describe('cache', () => {
-  it('set cache', async () => {
-    const set = await cache.set('user_000000002', 'Luke Skywalker');
-    expect(set).toEqual(true);
+  it('set cache', () => {
+    const set = cache.set('user_000000002', 'Luke Skywalker');
+    expect(set).toEqual(undefined);
   });
 
-  it('get from cache', async () => {
-    const item = await cache.get('user_000000001')
+  it('get from cache', () => {
+    const item = cache.get('user_000000001')
     expect(item).toEqual('Darth Vader')
   });
 
-  it('not found in cache', async () => {
-    const item = await cache.get('random_key')
+  it('not found in cache', () => {
+    const item = cache.get('random_key')
+    expect(item).toEqual(undefined)
+  });
+
+  it('expired from cache', async () => {    
+    cache.set('user_000000003', 'Yoda');
+    const wait = new Promise(resolve => setTimeout(resolve, 3000));
+    await wait.then(()=>{
+      const item = cache.get('user_000000003');
+      expect(item).toEqual(undefined);
+    });
+    // jest.useFakeTimers();
+    // cache.set('user_000000003', 'Yoda');
+    // console.log(new Date(), 'set yoda')
+    // setTimeout(() => {
+    //   const item = cache.get('user_000000003')
+    //   console.log(new Date(), item);
+    //   expect(item).toEqual(undefined)
+    // }, 2000)
+    // jest.runAllTimers();  
+  });  
+
+  it('max capacity hit in cache', () => {
+    cache.set('user_000000004', 'C3PIO');
+    cache.set('user_000000005', 'R2D2');
+    cache.set('user_000000006', 'BB8');
+    const item = cache.get('user_000000004')
     expect(item).toEqual(undefined)
   });
 });
 
-beforeAll(async () => {
-  await cache.set('user_000000001', 'Darth Vader');
+beforeAll(() => {
+  cache.set('user_000000001', 'Darth Vader');
 })

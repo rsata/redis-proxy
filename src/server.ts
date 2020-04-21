@@ -21,7 +21,7 @@ app.get('/id/:key', async (req, res) => {
 
     // if found in cache, send it
     if (item!==undefined) {      
-      res.status(200).send({key, value: item, source: 'cache'});
+      res.status(200).send({key, value: item});
       return;
     }
 
@@ -30,7 +30,7 @@ app.get('/id/:key', async (req, res) => {
 
     // If found in redis, send it and update cache
     if (item!==null) {      
-      res.status(200).send({key, value: item, source: 'redis'});
+      res.status(200).send({key, value: item});
       await cache.set(key, item)
       return;
     }
