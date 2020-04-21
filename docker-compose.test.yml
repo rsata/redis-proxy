@@ -12,8 +12,6 @@ services:
     ports:
       - '${PORT}:${PORT}'
     working_dir: /usr/src/app
-    # volumes:
-    #   - ./:/usr/src/app
     links:
       - redis
   
