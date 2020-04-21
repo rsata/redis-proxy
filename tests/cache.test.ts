@@ -24,16 +24,7 @@ describe('cache', () => {
     await wait.then(()=>{
       const item = cache.get('user_000000003');
       expect(item).toEqual(undefined);
-    });
-    // jest.useFakeTimers();
-    // cache.set('user_000000003', 'Yoda');
-    // console.log(new Date(), 'set yoda')
-    // setTimeout(() => {
-    //   const item = cache.get('user_000000003')
-    //   console.log(new Date(), item);
-    //   expect(item).toEqual(undefined)
-    // }, 2000)
-    // jest.runAllTimers();  
+    }); 
   });  
 
   it('max capacity hit in cache', () => {
