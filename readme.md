@@ -22,14 +22,14 @@ Retrieval from the cache moves an item to the head of the list if it is not expi
 The Redis backing instance has methods for get, set and quit. On get, it will retrieve a single string value for a key. If the item is not found, it returns null and the proxy returns a 404. 
 
 ## Algorithm complexity of the cache operations.
-Get: O(1) - key/values are stored in a JS Object which has constant time complexity for retrievals.
-Set: O(1) - Entries are always stored at the head of the list.
-Delete: O(1) - When the max capacity is hit, the tail of the list is dropped. For deletions when the item is expired, that node's neighbors are updated to point at each other.
+* Get: O(1) - key/values are stored in a JS Object which has constant time complexity for retrievals.
+* Set: O(1) - Entries are always stored at the head of the list.
+* Delete: O(1) - When the max capacity is hit, the tail of the list is dropped. For deletions when the item is expired, that node's neighbors are updated to point at each other.
 
 ## Running and testing
-To run tests: `make test`
-To run a development environment: `make dev`
-To build: `make build`
+* To run tests: `make test`
+* To run a development environment: `make dev`
+* To build: `make build`
 
 Optionally, update the `.env` file
 ```
