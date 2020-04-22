@@ -115,11 +115,3 @@ export default class LRU {
     }    
   }
 }
-
-
-// const cache = new LRU(1000, 3)
-
-// cache.set(1, "first")
-// cache.set(2, "second")
-// cache.set(3, "third")
-// console.log(cache)

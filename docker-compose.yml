@@ -3,14 +3,13 @@ services:
   server:
     build: 
       context: .
-      dockerfile: ./Dockerfile.build
-    command: sh -c "npm install"
+      dockerfile: ./Dockerfile.test
     environment:
       - NODE_ENV=production
     env_file:
       - .env
     ports:
-      - '3000:3000'
+      - '${PORT}:${PORT}'
     working_dir: /usr/src/app
     links:
       - redis
@@ -19,3 +18,4 @@ services:
     image: redis
     expose:
       - 6379
+    command: ["redis-server", "--bind", "redis", "--port", "${REDIS_PORT}"]
